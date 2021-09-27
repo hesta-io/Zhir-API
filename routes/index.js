@@ -3,7 +3,7 @@ const withUserAuth = require('../controller/withUserAuth');
 const authRouter = require('./auth');
 const jobRouter = require('./job');
 const s3interface = require('./s3interface');
-const userRouter = require('./user').router;
+const userRouter = require('./user');
 const idPayRouter = require('./idPay');
 
 const router = express();

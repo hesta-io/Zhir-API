@@ -28,7 +28,7 @@ module.exports = {
 			.exists()
 			.isUUID()
 			.withMessage('ئایدی دروستکراو هەڵەیە')
-			.custom((v, { req }) => checkUserActiveJobs(req.session.user.id)),
+			.custom((v, { req }) => checkUserActiveJobs(req.user.id)),
 		body('group_name').exists().isString(),
 		body('lang').exists().isString(),
 		body('files')
@@ -38,7 +38,7 @@ module.exports = {
 			.withMessage('دەبێت بەلایەنی کەم فایلێک بنێریت')
 			.isArray({ max: 100 })
 			.withMessage('دەبێت کەمتر لە 100 فایل هەڵبژێریت بۆ هەر جارێک')
-			.custom((v, { req }) => balanceValidator(req.session.user.id, v)),
+			.custom((v, { req }) => balanceValidator(req.user.id, v)),
 		body('files.*.name').exists().trim().isString(),
 		body('files.*.index').exists().isInt(),
 		body('files.*.extention').exists().isString(),
@@ -98,7 +98,7 @@ module.exports = {
 		param('job_id')
 			.exists()
 			.isUUID()
-			.custom((v, { req }) => rateJobDataValidator(req.session.user.id, v)),
+			.custom((v, { req }) => rateJobDataValidator(req.user.id, v)),
 		body('rate')
 			.exists()
 			.isIn([1, 2, 3, 4, 5])
