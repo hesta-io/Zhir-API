@@ -225,7 +225,10 @@ router.post('/login', emailPassValidator, (req, res) => {
 	login(email, password)
 		.then((r) => {
 			if (r.success) {
-				res.json(r.user);
+				res.json({
+					...r.user,
+					token: r.token,
+				});
 			} else {
 				res.status(r.status).json({ msg: r.msg });
 			}

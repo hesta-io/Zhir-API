@@ -7,10 +7,10 @@ const userRouter = require('./user');
 const idPayRouter = require('./idPay');
 
 const router = express();
-router.use('/api/auth', authRouter);
-router.use('/api/job', jobRouter);
-router.use('/api/user', withUserAuth(userRouter));
-router.use('/api/payment/idpay', idPayRouter);
+router.use('/auth', authRouter);
+router.use('/job', jobRouter);
+router.use('/user', withUserAuth(userRouter));
+router.use('/payment/idpay', idPayRouter);
 router.use('/assets', withUserAuth(s3interface));
 
 module.exports = router;

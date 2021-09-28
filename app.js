@@ -15,9 +15,13 @@ const accessLogStream = rfs.createStream('access.log', {
 	path: path.join(__dirname, 'log'),
 });
 
-const logger = morgan('combined', {
+let loggerOptions = {
 	stream: accessLogStream,
-});
+};
+if (process.env.NODE_ENV === 'development') {
+	loggerOptions = {};
+}
+const logger = morgan('combined', loggerOptions);
 app.use(logger);
 
 app.use(cors());
