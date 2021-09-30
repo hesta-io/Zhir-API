@@ -63,7 +63,8 @@ function login(email, password) {
 			return {
 				status: 400,
 				success: false,
-				msg: ' پۆستی ئەلئکترۆنی نەدۆزرایەوە یان هەژمارەکەت راگیراوە',
+				// msg: ' پۆستی ئەلئکترۆنی نەدۆزرایەوە یان هەژمارەکەت راگیراوە',
+				msg: 'پۆستی ئەلیکترۆنی یان تێپەڕەوشە هەڵەیە',
 				user: null,
 			};
 		}
@@ -77,7 +78,7 @@ function login(email, password) {
 			return {
 				status: 400,
 				success: false,
-				msg: 'تێپەڕەوشە هەڵەیە',
+				msg: 'پۆستی ئەلیکترۆنی یان تێپەڕەوشە هەڵەیە',
 				user: null,
 			};
 		}
