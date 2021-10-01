@@ -253,8 +253,7 @@ router.post('/register', createValidator, (req, res) => {
 						res.json({ msg: 'هەژمار دروستکرا' });
 					});
 				})
-				.catch((e) => {
-					console.log(e);
+				.catch(() => {
 					res.status(500).json({
 						msg:
 							'ناردنی بەستەری کاراکردنی هەژمار سەرکەوتوو نەبوو تکایە پەیوەندیمان پێوەبکە',
@@ -268,14 +267,14 @@ router.post('/register', createValidator, (req, res) => {
 		});
 });
 router.post(
-	'/request-password-reset',
+	'/request-password-recovery',
 	requestPasswordResetValidator,
 	(req, res) => {
 		const { body } = req;
 		generateTmpPass(body.email)
 			.then((user) => {
 				const tmpPass = user.tmp_password;
-				const url = `${process.env.DOMAIN}/password-reset?token=${tmpPass}`;
+				const url = `${process.env.DOMAIN}/auth/password-recovery?token=${tmpPass}`;
 				const htmlMsg = passwordResetTemplate(url);
 				send('ژیر | گۆڕینی تێپەڕەوشە', htmlMsg, user.email, () => {
 					res.json({ msg: 'yayy' });
@@ -288,7 +287,7 @@ router.post(
 			});
 	},
 );
-router.post('/password-reset', passwordResetValidator, (req, res) => {
+router.post('/password-recovery', passwordResetValidator, (req, res) => {
 	const { body } = req;
 	passwordReset(body)
 		.then((user) => {
@@ -300,13 +299,10 @@ router.post('/password-reset', passwordResetValidator, (req, res) => {
 			};
 			const token = jwt.sign({ data: mutatedUser }, process.env.USER_JWT_SECRET, { expiresIn: '362d' });
 			mutatedUser.token = token;
-			res.json({
-				user: mutatedUser,
-				token,
-			});
+			res.json(mutatedUser);
 		})
 		.catch((e) => {
-			res.status(500).json({
+			res.status(400).json({
 				msg: e.toString(),
 			});
 		});
