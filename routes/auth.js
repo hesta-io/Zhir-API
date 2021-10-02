@@ -336,9 +336,9 @@ router.get('/activate-account', activateAccountValidator, (req, res) => {
 	activateAccount(query)
 		.then((user) => {
 			if (user.user_id) {
-				res.redirect('/login?account-status=already-activated');
+				res.status(200).json({ state: 'already-activated' });
 			} else {
-				res.redirect('/login?account-status=activated');
+				res.status(200).json({ state: 'activated' });
 			}
 		})
 		.catch((e) => {
