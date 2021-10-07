@@ -9,7 +9,6 @@ const {
 } = require('../query/user');
 
 const router = express();
-
 router.put('/', updateValidator, (req, res) => {
 	updateUserQuery(req.body, req.user.id)
 		.then(() => {

@@ -102,7 +102,7 @@ module.exports = {
 			.withMessage('بوونی نیە')
 			.trim()
 			.isString()
-			.custom((v, { req }) => duplicateEmailUserUpdateValidator(v, req.session.user))
+			.custom((v, { req }) => duplicateEmailUserUpdateValidator(v, req.user))
 			.custom((v) => blockedEmailValidator(v, blockedEmails)),
 		body('phone_no')
 			.exists()
@@ -115,7 +115,7 @@ module.exports = {
 				`ژمارەی مۆبایل دەبێت لەم شێوەیە بێت بۆ نموونە
 			9647727903366+`,
 			)
-			.custom((v, { req }) => duplicatePhoneNumberUserUpdateValidator(v, req.session.user)),
+			.custom((v, { req }) => duplicatePhoneNumberUserUpdateValidator(v, req.user)),
 		body('password_retype').optional().isString(),
 		body('password')
 			.optional()

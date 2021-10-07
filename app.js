@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 	loggerOptions = {};
 }
 const logger = morgan('combined', loggerOptions);
-app.use(logger);
+// app.use(logger);
 
 app.use(cors());
 // app.use(helmet({

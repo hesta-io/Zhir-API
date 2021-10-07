@@ -21,6 +21,7 @@ module.exports = (query) => [(req, res) => {
 			}
 		});
 	} catch (e) {
+		console.log(e);
 		res.status(500).json({ msg: 'server error occurred 2' });
 		const env = process.env.LUNCH_ENV || 'development';
 		if (env === 'production') {
