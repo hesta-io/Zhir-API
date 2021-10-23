@@ -21,7 +21,7 @@ const isValidAPIKey = require('../helpers/isValidAPIKey');
 const router = express();
 
 router.post('/', userJWT, createValidator, async (req, res) => {
-	createJobQuery(req.body, req.session.user)
+	createJobQuery(req.body, req.user)
 		.then(() => {
 			res.json({
 				msg: 'کارەکە بە سەرکەوتووی نێردرا',
