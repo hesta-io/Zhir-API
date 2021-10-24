@@ -58,9 +58,10 @@ async function rateJobQuery(body, req) {
 		.where('id', params.job_id)
 		.then(() => params.job_id);
 }
-async function readJobListQuery(limit, offset, userId = 0) {
+async function readJobListQuery(limit, offset, userId = 0, q = '') {
 	await db.raw('set transaction isolation level read uncommitted;');
-	return db('job')
+
+	const query = db('job')
 		.select(
 			'job.id',
 			'job.name',
@@ -86,6 +87,11 @@ async function readJobListQuery(limit, offset, userId = 0) {
 		.orderBy('created_at', 'desc')
 		.limit(limit)
 		.offset(offset);
+
+	if (q) {
+		query.where('job.code', 'LIKE', `%${q}%`);
+	}
+	return query;
 }
 async function readSingleJobQuery(jobId = 0, userId = 0) {
 	return db('job')

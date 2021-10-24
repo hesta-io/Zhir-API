@@ -13,6 +13,7 @@ router.use('/auth', authRouter);
 router.use('/job', jobRouter);
 router.use('/user', jwtVerify, userRouter);
 router.use('/payment/idpay', idPayRouter);
+// router.use('/assets', withUserAuth(s3interface));
 router.use('/assets', withUserAuth(s3interface));
 
 module.exports = router;

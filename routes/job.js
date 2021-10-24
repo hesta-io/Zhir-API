@@ -57,7 +57,7 @@ router.post(
 );
 
 router.get('/external/list', isValidAPIKey, (req, res) => {
-	readJobListQuery(100, 0, req.user.id)
+	readJobListQuery(100, 0, req.user.id, req.query.q)
 		.then((data) => {
 			res.json(data);
 		})
@@ -108,7 +108,7 @@ router.put(
 	},
 );
 router.get('/list', userJWT, (req, res) => {
-	readJobListQuery(100, 0, req.user.id)
+	readJobListQuery(100, 0, req.user.id, req.query.q)
 		.then((data) => {
 			res.json(data);
 		})
