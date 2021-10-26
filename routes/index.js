@@ -1,5 +1,5 @@
 const express = require('express');
-const withUserAuth = require('../controller/withUserAuth');
+// const withUserAuth = require('../controller/withUserAuth');
 const jwtVerify = require('../middlewares/jwt/user');
 
 const authRouter = require('./auth');
@@ -14,6 +14,6 @@ router.use('/job', jobRouter);
 router.use('/user', jwtVerify, userRouter);
 router.use('/payment/idpay', idPayRouter);
 // router.use('/assets', withUserAuth(s3interface));
-router.use('/assets', withUserAuth(s3interface));
+router.use('/assets', s3interface);
 
 module.exports = router;

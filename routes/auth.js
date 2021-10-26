@@ -29,6 +29,7 @@ function register(data) {
 	const user = {
 		name: data.name,
 		company_name: data.company_name,
+		api_key: uuidv4(),
 		email: data.email,
 		password: sha1(`${salt}${data.password}`),
 		salt,

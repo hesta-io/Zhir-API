@@ -89,7 +89,7 @@ async function readJobListQuery(limit, offset, userId = 0, q = '') {
 		.offset(offset);
 
 	if (q) {
-		query.where('job.code', 'LIKE', `%${q}%`);
+		query.where('job.name', 'LIKE', `%${q}%`);
 	}
 	return query;
 }
