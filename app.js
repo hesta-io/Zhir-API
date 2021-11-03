@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 	loggerOptions = {};
 }
 const logger = morgan('combined', loggerOptions);
-// app.use(logger);
+app.use(logger);
 
 app.use(cors());
 // app.use(helmet({
@@ -41,7 +41,7 @@ app.use('/files', seInterfaceRouter);
 app.use('/', require('./routes'));
 
 app.get('/', (req, res) => {
-	res.json({ msg: 'Akeed Express' });
+	res.json({ msg: 'Zhir.io API' });
 });
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
