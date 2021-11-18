@@ -644,6 +644,9 @@ const blockedEmailProviders = [
 	'kksm.be',
 	'tensi.org',
 	'test.com',
+	'niekie.com',
+	'd3ff.com',
+	'datakop.com',
 ];
 
 module.exports = blockedEmailProviders;
