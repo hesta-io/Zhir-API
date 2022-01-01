@@ -9,7 +9,7 @@ const {
 	rateJobValidator: rateJobDataValidator,
 } = require('./data/job');
 
-const maxFileSize = 1e7; // file limit is now 10mb
+const maxFileSize = 1.2e+7; // file limit is now 12mb
 const allowedImageTypes = [
 	'image/jpg',
 	'image/jpeg',
