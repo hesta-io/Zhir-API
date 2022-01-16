@@ -7,11 +7,13 @@ const jobRouter = require('./job');
 const s3interface = require('./s3interface');
 const userRouter = require('./user');
 const idPayRouter = require('./idPay');
+const fastpayRouter = require('./fastpay');
 
 const router = express();
 router.use('/auth', authRouter);
 router.use('/job', jobRouter);
 router.use('/user', jwtVerify, userRouter);
+router.use('/payment/fastpay', fastpayRouter);
 router.use('/payment/idpay', idPayRouter);
 // router.use('/assets', withUserAuth(s3interface));
 router.use('/assets', s3interface);
