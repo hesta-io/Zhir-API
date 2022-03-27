@@ -5,6 +5,9 @@ const { v4: uuidv4 } = require('uuid');
 const sha1 = require('sha1');
 const utc = require('dayjs/plugin/utc');
 const dayjs = require('dayjs');
+
+const allowedMethods = ['bradost'];
+
 const { createValidator } = require('../middlewares/validators/user');
 const {
 	passwordResetValidator,
@@ -26,7 +29,6 @@ const router = express();
 
 function register(data) {
 	const salt = uuidv4();
-	const allowedMethods = ['bradost'];
 	const user = {
 		name: data.name,
 		company_name: data.company_name,
@@ -245,7 +247,22 @@ router.post('/login', emailPassValidator, (req, res) => {
 router.post('/register', createValidator, (req, res) => {
 	const { body } = req;
 	register(body)
-		.then(async () => {
+		.then(async ([userId]) => {
+			if (allowedMethods.indexOf(body.method) > -1) {
+				await db('user_transaction').insert({
+					user_id: userId,
+					type_id: 1, // for recharge
+					payment_medium_id: 1, // for zhir.io
+					page_count: 50,
+					confirmed: 1,
+					amount: 0,
+					transaction_id: uuidv4(),
+					user_note:
+						'دیاری دروستکردنی هەژمار هەموو مانگێک خۆکارانە ٥٠ لاپەڕە وەردەگریت',
+					admin_note: 'Account Activation Present',
+					created_at: db.fn.now(),
+				});
+			}
 			generateActivationToken(body.email)
 				.then((user) => {
 					const activationToken = user.activation_token;
