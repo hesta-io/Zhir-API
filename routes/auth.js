@@ -26,6 +26,7 @@ const router = express();
 
 function register(data) {
 	const salt = uuidv4();
+	const allowedMethods = ['bradost'];
 	const user = {
 		name: data.name,
 		company_name: data.company_name,
@@ -34,7 +35,7 @@ function register(data) {
 		password: sha1(`${salt}${data.password}`),
 		salt,
 		active: 1,
-		verified: 0,
+		verified: data.method && allowedMethods.indexOf(data.method) > -1 ? 1 : 0,
 		gender: 'unspecified',
 		created_at: db.fn.now(),
 		updated_at: db.fn.now(),
